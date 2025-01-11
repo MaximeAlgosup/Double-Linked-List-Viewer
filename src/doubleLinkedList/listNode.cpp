@@ -22,6 +22,14 @@ ListNode::ListNode(string name, int rank, int videoNb, unsigned long views){
     this->prev = nullptr;
 }
 
+ListNode::ListNode(){
+    this->name = "";
+    this->rank = 0;
+    this->videoNb = 0;
+    this->views = 0;
+    this->next = nullptr;
+    this->prev = nullptr;
+}
 string ListNode::getName(){
     return name;
 }

@@ -29,11 +29,6 @@ public:
     List();
 
     /*!
-        \brief Destructor for the List class.
-    */
-    ~List();
-
-    /*!
         \brief Get the size of the list.
         \return The size of the list.
     */
@@ -174,6 +169,6 @@ public:
         \brief Load the list from a file.
         \param filename The name of the file to load the list from.
     */
-    void loadListFromFile(const string &filename);
+    void loadListFromFile(const string filename);
 };
 

@@ -34,6 +34,11 @@ public:
     ListNode(string name, int rank, int videoNb, unsigned long views);
 
     /*!
+        \brief Constructor for the ListNode class.
+    */
+    ListNode();
+
+    /*!
         \brief Get the name of the actress.
         \return The name of the actress.
     */
