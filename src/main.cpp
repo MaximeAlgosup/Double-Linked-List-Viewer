@@ -13,8 +13,10 @@ int main(void)
 {
     List *testList = new List();
     testList->loadListFromFile(DATA_SET_FILE);
-
-    testList->printList();
+    testList->sortByRank();
+    if(testList->isSortedByRank()){
+        std::cout << "List is sorted by rank" << std::endl;
+    }
 
     return 0;
 }

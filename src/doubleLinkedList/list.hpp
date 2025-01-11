@@ -21,8 +21,29 @@ private:
     ListNode *tail;
     int size;
 
-public:
+    /*!
+        \brief Split the list into two halves.
+        \param node The node to split.
+        \return The node at the middle of the list.
+    */
+    ListNode *splitList(ListNode *node);
 
+    /*!
+        \brief Merge two sorted lists.
+        \param first The first list to merge.
+        \param second The second list to merge.
+        \return The merged list.
+    */
+    ListNode *mergeSortedLists(ListNode *first, ListNode *second);
+    
+    /*!
+        \brief Sort the list by rank using merge sort.
+        \param node The node to sort.
+        
+    */
+    ListNode *mergeSort(ListNode *node);
+
+public:
     /*!
         \brief Constructor for the List class.
     */
@@ -91,7 +112,6 @@ public:
     */
     ListNode *getNode(int index);
 
-
     /*!
         \brief Print the list.
     */
@@ -107,7 +127,6 @@ public:
         \brief Sort the list by rank using merge sort.
     */
     void sortByRank();
-
 
     /*!
         \brief Check if the list is sorted by name.
@@ -171,4 +190,3 @@ public:
     */
     void loadListFromFile(const string filename);
 };
-

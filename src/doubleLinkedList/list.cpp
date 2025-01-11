@@ -197,8 +197,69 @@ bool List::isSortedByRank()
     return true;
 }
 
-void List::sortByRank() // merge sort
+ListNode *List::splitList(ListNode *node)
 {
+    ListNode *slow = node;
+    ListNode *fast = node;
+
+    while (fast && fast->getNext() && fast->getNext()->getNext())
+    {
+        slow = slow->getNext();
+        fast = fast->getNext()->getNext();
+    }
+
+    ListNode *secondHalf = slow->getNext();
+    slow->setNext(nullptr);
+    if (secondHalf) secondHalf->setPrev(nullptr);
+
+    return secondHalf;
+}
+
+ListNode *List::mergeSortedLists(ListNode *first, ListNode *second)
+{
+    if (!first)
+        return second;
+    if (!second)
+        return first;
+
+    if (first->getRank() <= second->getRank())
+    {
+        first->setNext(mergeSortedLists(first->getNext(), second));
+        first->getNext()->setPrev(first);
+        first->setPrev(nullptr);
+        return first;
+    }
+    else
+    {
+        second->setNext(mergeSortedLists(first, second->getNext()));
+        second->getNext()->setPrev(second);
+        second->setPrev(nullptr);
+        return second;
+    }
+}
+
+ListNode *List::mergeSort(ListNode *node)
+{
+    if (!node || !node->getNext())
+        return node;
+
+    ListNode *secondHalf = splitList(node);
+    node = mergeSort(node);
+    secondHalf = mergeSort(secondHalf);
+
+    return mergeSortedLists(node, secondHalf);
+}
+
+void List::sortByRank()
+{
+    head = mergeSort(head);
+
+    ListNode *temp = head;
+    while (temp && temp->getNext())
+    {
+        temp = temp->getNext();
+    }
+    tail = temp;
 }
 
 bool List::isSortedByName()
@@ -304,7 +365,8 @@ void List::saveListToFile(const string &filename)
     ListNode *current = head;
     while (current != nullptr)
     {
-        fwrite(current, sizeof(ListNode), 1, file);
+        string toWrite = current->getName() + "," + to_string(current->getRank()) + "," + to_string(current->getVideoNb()) + "," + to_string(current->getViews()) + "\n";
+        fwrite(toWrite.c_str(), sizeof(char), toWrite.size(), file);
         current = current->getNext();
     }
     fclose(file);
@@ -320,7 +382,7 @@ void List::loadListFromFile(const string filename)
         return;
     }
 
-    for (string line; getline(input, line); )
+    for (string line; getline(input, line);)
     {
         size_t pos = 0;
         size_t tokenNb = 0;
@@ -330,27 +392,29 @@ void List::loadListFromFile(const string filename)
         int nodevideoNb;
         unsigned long nodeviews;
 
-        while((pos = line.find(separator)) != std::string::npos || tokenNb < 4){
+        while ((pos = line.find(separator)) != std::string::npos || tokenNb < 4)
+        {
             token = line.substr(0, pos);
-            switch(tokenNb){
-                case 0:
-                    nodeName = token;
-                    break;
-                case 1:
-                    nodeRank = stoi(token);
-                    break;
-                case 2:
-                    nodevideoNb = stoi(token);
-                    break;
-                case 3:
-                    nodeviews = stoul(token);
-                    break;
-                default:
-                    break;
+            switch (tokenNb)
+            {
+            case 0:
+                nodeName = token;
+                break;
+            case 1:
+                nodeRank = stoi(token);
+                break;
+            case 2:
+                nodevideoNb = stoi(token);
+                break;
+            case 3:
+                nodeviews = stoul(token);
+                break;
+            default:
+                break;
             }
             line.erase(0, pos + 1);
             ++tokenNb;
         }
-        pushFront(nodeName,nodeRank,nodevideoNb,nodeviews);
+        pushFront(nodeName, nodeRank, nodevideoNb, nodeviews);
     }
 }
