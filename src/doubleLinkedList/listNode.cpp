@@ -13,7 +13,8 @@
 
 using namespace std;
 
-ListNode::ListNode(string name, int rank, int videoNb, unsigned long views){
+ListNode::ListNode(string name, int rank, int videoNb, unsigned long views)
+{
     this->name = name;
     this->rank = rank;
     this->videoNb = videoNb;
@@ -22,7 +23,8 @@ ListNode::ListNode(string name, int rank, int videoNb, unsigned long views){
     this->prev = nullptr;
 }
 
-ListNode::ListNode(){
+ListNode::ListNode()
+{
     this->name = "";
     this->rank = 0;
     this->videoNb = 0;
@@ -30,34 +32,76 @@ ListNode::ListNode(){
     this->next = nullptr;
     this->prev = nullptr;
 }
-string ListNode::getName(){
+string ListNode::getName()
+{
     return name;
 }
 
-int ListNode::getRank(){
+int ListNode::getRank()
+{
     return rank;
 }
 
-int ListNode::getVideoNb(){
+int ListNode::getVideoNb()
+{
     return videoNb;
 }
 
-unsigned long ListNode::getViews(){
+unsigned long ListNode::getViews()
+{
     return views;
 }
 
-ListNode *ListNode::getNext(){
+ListNode *ListNode::getNext()
+{
     return next;
 }
 
-ListNode *ListNode::getPrev(){
+ListNode *ListNode::getPrev()
+{
     return prev;
 }
 
-void ListNode::setNext(ListNode *next){
+void ListNode::setName(string name){
+    this->name = name;
+}
+
+void ListNode::setRank(int rank){
+    this->rank = rank;
+}
+
+void ListNode::setVideoNb(int videoNb){
+    this->videoNb = videoNb;
+}
+
+void ListNode::setViews(unsigned long views){
+    this->views = views;
+}
+
+void ListNode::setNext(ListNode *next)
+{
     this->next = next;
 }
 
-void ListNode::setPrev(ListNode *prev){
+void ListNode::setPrev(ListNode *prev)
+{
     this->prev = prev;
+}
+
+void ListNode::swapData(ListNode *node)
+{
+    string tempName = name;
+    int tempRank = rank;
+    int tempVideoNb = videoNb;
+    unsigned long tempViews = views;
+
+    name = node->getName();
+    rank = node->getRank();
+    videoNb = node->getVideoNb();
+    views = node->getViews();
+
+    node->setName(tempName);
+    node->setRank(tempRank);
+    node->setVideoNb(tempVideoNb);
+    node->setViews(tempViews);
 }

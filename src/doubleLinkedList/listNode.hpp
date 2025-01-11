@@ -56,13 +56,14 @@ public:
     */
     int getVideoNb();
 
+
     /*!
         \brief Get the number of views the actress has.
         \return The number of views the actress has.
     */
     unsigned long getViews();
 
-    /*!
+        /*!
         \brief Get the next node in the list.
         \return The next node in the list.
     */
@@ -75,6 +76,30 @@ public:
     ListNode *getPrev();
 
     /*!
+        \brief Set the name of the actress.
+        \param name The name of the actress.
+    */
+    void setName(string name);
+
+    /*!
+        \brief Set the rank of the actress.
+        \param rank The rank of the actress.
+    */
+    void setRank(int rank);
+
+    /*!
+        \brief Set the number of videos the actress has appeared in.
+        \param videoNb The number of videos the actress has appeared in.
+    */
+    void setVideoNb(int videoNb);
+
+    /*!
+        \brief Set the number of views the actress has.
+        \param views The number of views the actress has.
+    */
+    void setViews(unsigned long views);
+
+    /*!
         \brief Set the next node in the list.
         \param next The next node in the list.
     */
@@ -85,6 +110,12 @@ public:
         \param prev The previous node in the list.
     */
     void setPrev(ListNode *prev);
+
+    /*!
+        \brief Swap the data of two nodes.
+        \param node The node to swap data with.
+    */
+    void swapData(ListNode *node);
 
 };
 

@@ -138,7 +138,6 @@ void List::remove(int index)
 {
     if (index < 0 || index >= size)
     {
-        cout << "Index out of bounds" << endl;
         return;
     }
     if (index == 0)
@@ -162,7 +161,7 @@ ListNode *List::getNode(int index)
 {
     if (index < 0 || index >= size)
     {
-        cout << "Index out of bounds" << endl;
+        // cout << "Index out of bounds" << endl;
         return nullptr;
     }
     ListNode *current = head;
@@ -276,8 +275,49 @@ bool List::isSortedByName()
     return true;
 }
 
+ListNode* List::partition(ListNode* low, ListNode* high) {
+    int pivot = high->getVideoNb();
+    ListNode* i = low->getPrev();
+
+    for (ListNode* j = low; j != high; j = j->getNext()) {
+        if (j->getVideoNb() < pivot) {
+            i = (i == nullptr) ? low : i->getNext();
+            i->swapData(j);
+        }
+    }
+
+    i = (i == nullptr) ? low : i->getNext();
+    i->swapData(high);
+    return i;
+}
+
+
+void List::quickSort(ListNode *low, ListNode *high)
+{
+    if(high != nullptr && low != high && low != high->getNext())
+    {
+        ListNode *pivot = partition(low, high);
+        quickSort(low, pivot->getPrev());
+        quickSort(pivot->getNext(), high);
+    }
+}
+
 void List::sortByVideoNb()
 {
+    quickSort(head, tail);
+}
+
+bool List::isSortedByVideoNb(){
+    ListNode *current = head;
+    while (current->getNext() != nullptr)
+    {
+        if (current->getVideoNb() > current->getNext()->getVideoNb())
+        {
+            return false;
+        }
+        current = current->getNext();
+    }
+    return true;
 }
 
 bool List::isSortedByViews()
@@ -294,8 +334,46 @@ bool List::isSortedByViews()
     return true;
 }
 
+void List::heapify(int n, int i){
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    ListNode *largestNode = getNode(largest);
+    ListNode *lNode = getNode(l);
+    ListNode *rNode = getNode(r);
+
+
+    if (l < n && lNode->getViews() > largestNode->getViews()){
+        largest = l;
+        largestNode = lNode;
+    }
+
+    if (r < n && rNode->getViews() > largestNode->getViews()){
+        largest = r;
+        largestNode = rNode;
+    }
+
+    if (largest != i){
+        largestNode->swapData(getNode(i));
+        heapify(n, largest);
+    }
+}
+
+void List::buildMaxHeap(){
+    for (int i = size / 2 - 1; i >= 0; i--){
+        heapify(size, i);
+    }
+}
+
 void List::sortByViews()
 {
+    buildMaxHeap();
+
+    for (int i = size - 1; i > 0; i--){
+        getNode(0)->swapData(getNode(i));
+        heapify(i, 0);
+    }
 }
 
 ListNode *List::searchByName(string name)

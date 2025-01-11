@@ -43,6 +43,33 @@ private:
     */
     ListNode *mergeSort(ListNode *node);
 
+    /*!
+        \brief Swap two nodes.
+        \param a The first node to swap.
+        \param b The second node to swap.
+    */
+    ListNode *partition(ListNode *low, ListNode *high);
+
+    /*!
+        \brief Sort the list by number of videos using quick sort.
+        \param low The lowest index of the list.
+        \param high The highest index of the list.
+    */
+    void quickSort(ListNode *low, ListNode *high);
+
+    /*!
+        \brief Heapify the list.
+        \param n The size of the list.
+        \param i The index to heapify.
+    */
+    void heapify(int n, int i);
+
+
+    /*!
+        \brief Build a max heap.
+    */
+    void buildMaxHeap();
+
 public:
     /*!
         \brief Constructor for the List class.
@@ -140,15 +167,21 @@ public:
     void sortByVideoNb();
 
     /*!
-        \brief Check if the list is sorted by number of views.
-        \return True if the list is sorted by number of views, false otherwise.
+        \brief Check if the list is sorted by number of videos.
+        \return True if the list is sorted by number of videos, false otherwise.
     */
-    bool isSortedByViews();
+    bool isSortedByVideoNb();
 
     /*!
         \brief Sort the list by number of views heap sort.
     */
     void sortByViews();
+
+    /*!
+        \brief Check if the list is sorted by number of views.
+        \return True if the list is sorted by number of views, false otherwise.
+    */
+    bool isSortedByViews();
 
     /*!
         \brief Search for an actress by name.
