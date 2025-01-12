@@ -9,28 +9,121 @@
 
 #include <assert.h>
 
-#define DATA_SET_FILE "/home/carbon/Documents/Algosup/2024_2025/Phase-3/Double-Linked-List-Viewer/formattedData/actressDataSet.csv"
+#define DATA_SET_FILE "../formattedData/actressDataSet.csv"
 
 int main(void)
 {
-    cout << "Welcome to the Double Linked List Viewer!" << endl;
-    List *testList = new List();
-    cout << "Loading list..." << endl;
-    testList->loadListFromFile(DATA_SET_FILE);
-    cout << "List sorting by rank using merge sort..." << endl;
-    testList->sortByRank();
-    assert(testList->isSortedByRank());
-    cout << "List sorted by rank." << endl;
+    List list;
+    list.loadListFromFile(DATA_SET_FILE);
 
-    cout << "List sorting by number of videos using quick sort..." << endl;
-    testList->sortByVideoNb();
-    assert(testList->isSortedByVideoNb());
-    cout << "List sorted by number of videos." << endl;
+    char option;
+    while (true)
+    {
+        cout << "Welcome to the Double Linked List Viewer!" << endl;
+        cout << "Select an option:" << endl;
+        cout << "1. Print data set" << endl;
+        cout << "2. Sort by rank" << endl;
+        cout << "3. Sort by number of videos" << endl;
+        cout << "4. Sort by number of views" << endl;
+        cout << "5. Search by rank" << endl;
+        cout << "6. Search by number of videos" << endl;
+        cout << "7. Search by number of views" << endl;
+        cout << "8. Remove by name" << endl;
+        cout << "9. Remove by rank" << endl;
+        cout << "q. Exit" << endl;
+        cout << "Enter an option: ";
+        cin >> option;
+        cin.ignore();
 
-    cout << "List sorting by number of views using heap sort..." << endl;
-    testList->sortByViews();
-    assert(testList->isSortedByViews());
-    cout << "List sorted by number of views." << endl;
+        switch (option)
+        {
+        case '1':
+            list.printList();
+            break;
+        case '2':
+            list.sortByRank();
+            break;
+        case '3':
+            list.sortByVideoNb();
+            break;
+        case '4':
+            list.sortByViews();
+            break;
+        case '5':
+        {
+            int rank;
+            cout << "Enter the rank to search: ";
+            cin >> rank;
+            cin.ignore();
+            ListNode *node = list.searchByRank(rank);
+            if (node)
+            {
+                cout << "Actress found: " << node->getName() << endl;
+            }
+            else
+            {
+                cout << "Actress not found" << endl;
+            }
+            break;
+        }
+        case '6':
+        {
+            int videoNb;
+            cout << "Enter the number of videos to search: ";
+            cin >> videoNb;
+            cin.ignore();
+            ListNode *node = list.searchByVideoNb(videoNb);
+            if (node)
+            {
+                cout << "Actress found: " << node->getName() << endl;
+            }
+            else
+            {
+                cout << "Actress not found" << endl;
+            }
+            break;
+        }
+        case '7':
+        {
+            unsigned long views;
+            cout << "Enter the number of views to search: ";
+            cin >> views;
+            cin.ignore();
+            ListNode *node = list.searchByViews(views);
+            if (node)
+            {
+                cout << "Actress found: " << node->getName() << endl;
+            }
+            else
+            {
+                cout << "Actress not found" << endl;
+            }
+            break;
+        }
+        case '8':
+        {
+            string name;
+            cout << "Enter the name to remove: ";
+            getline(cin, name);
+            list.removeByName(name);
+            break;
+        }
+        case '9':
+        {
+            int rank;
+            cout << "Enter the rank to remove: ";
+            cin >> rank;
+            cin.ignore();
+            list.removeByRank(rank);
+            break;
+        }
+        case 'q':
+            return 0;
+        default:
+            cout << "Invalid option" << endl;
+            break;
+        }
+    }
 
     return 0;
 }

@@ -157,6 +157,60 @@ void List::remove(int index)
     size--;
 }
 
+void List::removeByName(string name){
+    ListNode *current = head;
+    while (current != nullptr)
+    {
+        if (current->getName().compare(name) == 0)
+        {
+            if (current == head)
+            {
+                popFront();
+            }
+            else if (current == tail)
+            {
+                popBack();
+            }
+            else
+            {
+                current->getPrev()->setNext(current->getNext());
+                current->getNext()->setPrev(current->getPrev());
+                delete current;
+                size--;
+            }
+            return;
+        }
+        current = current->getNext();
+    }
+}
+
+void List::removeByRank(int rank){
+    ListNode *current = head;
+    while (current != nullptr)
+    {
+        if (current->getRank() == rank)
+        {
+            if (current == head)
+            {
+                popFront();
+            }
+            else if (current == tail)
+            {
+                popBack();
+            }
+            else
+            {
+                current->getPrev()->setNext(current->getNext());
+                current->getNext()->setPrev(current->getPrev());
+                delete current;
+                size--;
+            }
+            return;
+        }
+        current = current->getNext();
+    }
+}
+
 ListNode *List::getNode(int index)
 {
     if (index < 0 || index >= size)

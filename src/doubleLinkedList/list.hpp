@@ -133,6 +133,18 @@ public:
     void remove(int index);
 
     /*!
+        \brief Remove the node with the specified name.
+        \param name The name of the node to remove.
+    */
+    void removeByName(string name);
+
+    /*!
+        \brief Remove the node with the specified rank.
+        \param rank The rank of the node to remove.
+    */
+    void removeByRank(int rank);
+
+    /*!
         \brief Get the node at a specific index.
         \param index The index of the node to get.
         \return The node at the specified index.
