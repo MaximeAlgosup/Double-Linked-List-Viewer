@@ -32,6 +32,13 @@ ListNode::ListNode()
     this->next = nullptr;
     this->prev = nullptr;
 }
+
+ListNode::~ListNode()
+{
+    this->next = nullptr;
+    this->prev = nullptr;
+}
+
 string ListNode::getName()
 {
     return name;

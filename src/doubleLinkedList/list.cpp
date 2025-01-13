@@ -18,6 +18,14 @@ List::List()
     size = 0;
 }
 
+List::~List()
+{
+    while (!isEmpty())
+    {
+        popFront();
+    }
+}
+
 int List::getSize()
 {
     return size;

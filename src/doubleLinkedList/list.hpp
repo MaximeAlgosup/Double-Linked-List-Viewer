@@ -77,6 +77,11 @@ public:
     List();
 
     /*!
+        \brief Destructor for the List class.
+    */
+    ~List();
+
+    /*!
         \brief Get the size of the list.
         \return The size of the list.
     */

@@ -39,6 +39,11 @@ public:
     ListNode();
 
     /*!
+        \brief Destructor for the ListNode class.
+    */
+    ~ListNode();
+
+    /*!
         \brief Get the name of the actress.
         \return The name of the actress.
     */
